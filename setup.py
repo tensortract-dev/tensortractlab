@@ -3,8 +3,8 @@ from setuptools import setup
 install_requires = [
     'streamlit==1.44.1',
     'streamlit-extras==0.6.0',
-    'tensortract2==0.0.0',
-    'vocaltractlab==0.5.4.dev1',
+    'tensortract2==0.0.1',
+    'vocaltractlab==0.5.5',
     ]
 
 setup(
