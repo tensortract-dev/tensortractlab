@@ -17,7 +17,7 @@ from typing import List
 import numpy as np
 
 from tensortract2 import TensorTract2
-import vocaltractlab as vtl
+from vocaltractlab import motor_to_audio, motor_to_contour
 from target_approximation.vocaltractlab import MotorSeries as VTL_MSRS
 from target_approximation.tensortract import MotorSeries as TT_MSRS
 
@@ -105,7 +105,7 @@ class TensorTractLab( TensorTract2 ):
             x = None
         # VTL synthesis
         if synthesis_type in ['vtl', 'both']:
-            y = vtl.motor_to_audio(
+            y = motor_to_audio(
                 motor_data = msrs,
                 audio_files = output_vtl,
                 **vtl_kwargs,
@@ -185,7 +185,7 @@ class TensorTractLab( TensorTract2 ):
             vtl_kwargs=vtl_kwargs,
             )
         if export_video is not None:
-            vtl.motor_to_contour(
+            motor_to_contour(
                 msrs[0],
                 video_file = export_video,
                 audio_file = audio_track,
@@ -293,7 +293,7 @@ class TensorTractLab( TensorTract2 ):
             vtl_kwargs=vtl_kwargs,
             )
         if export_video is not None:
-            vtl.motor_to_contour(
+            motor_to_contour(
                 msrs[0],
                 video_file = export_video,
                 audio_file = audio_track,
