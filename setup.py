@@ -1,6 +1,7 @@
 from setuptools import setup
 
 install_requires = [
+    'numba==0.61.0',
     'streamlit==1.44.1',
     'streamlit-extras==0.6.0',
     'tensortract2==0.0.1',
