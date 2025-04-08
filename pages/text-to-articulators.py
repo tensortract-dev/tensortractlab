@@ -102,7 +102,7 @@ elif synthesis_type == "Silent":
     st.session_state.audio_track_type = 'silent'
 
 # Define grid layout (Left: Audio, Right: Plot)
-grid_layout = grid(1, 1, 1, 1, 1, [0.5,0.5], 1, 1, 1, vertical_align="center")  
+grid_layout = grid(1, 1, 1, 1, 1, 1, [0.5,0.5], 1, vertical_align="center")  
 
 
 # language selection via dropdown
@@ -142,7 +142,8 @@ def process_t2a_audio_input(x):
     grid_layout.write( "Neural Synthesis (TT2):" )
     grid_layout.audio(tt2_synthesis, sample_rate=16000, format="audio/mpeg")
     grid_layout.write( "Articulatory Synthesis (VTL):" )
-    grid_layout.audio(vtl_synthesis, sample_rate=16000, format="wav")
+    grid_layout.audio(vtl_synthesis, sample_rate=16000, format="audio/mpeg")
+    grid_layout.write( "Video of Articulatory Movements:" )
     grid_layout.video("data/temp_tts_video.mp4", format="video/mp4", start_time=0)
     return
 

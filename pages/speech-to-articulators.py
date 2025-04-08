@@ -104,14 +104,14 @@ elif synthesis_type == "Silent":
 
 
 # Define grid layout (Left: Audio, Right: Plot)
-grid_layout = grid(1, 1, [0.5, 0.5], [0.45, 0.05, 0.45], 1, 1, 1, 1, [0.5, 0.5], vertical_align="center")  
+grid_layout = grid(1, 1, [0.5, 0.5], [0.45, 0.05, 0.45], 1, 1, 1, 1, 1, [0.5, 0.5], vertical_align="center")  
 
 fig = plot_audio_waveform()
 s2a_audio_input_plot = grid_layout.pyplot(fig, use_container_width=True)
 
 # Row 2: File Upload & Recording
 if 's2a_audio_input' not in st.session_state:
-    st.session_state['s2a_audio_input'] = np.array([])
+    st.session_state['s2a_audio_input'] = np.array([0.0 for _ in range(16) ])
 
 s2a_audio_input_play = grid_layout.audio(
     st.session_state.s2a_audio_input,
@@ -174,6 +174,7 @@ def process_s2a_audio_input(x):
     grid_layout.audio(tt2_synthesis, sample_rate=16000, format="audio/mpeg")
     grid_layout.write( "Articulatory Synthesis (VTL):" )
     grid_layout.audio(vtl_synthesis, sample_rate=16000, format="audio/mpeg")
+    grid_layout.write( "Video of Articulatory Movements:" )
     grid_layout.video("data/temp_video.mp4", format="video/mp4", start_time=0)
     return
 
