@@ -15,9 +15,9 @@ st.set_page_config(
 
 @st.cache_resource  # 👈 Add the caching decorator
 def load_model():
-   if st.secrets['HF_TOKEN'] is not None:
+   try:
       hf_token = st.secrets['HF_TOKEN']
-   else:
+   except Exception:
       hf_token = None
    print("Loading model...")
    model = TensorTractLab(hf_token=hf_token)

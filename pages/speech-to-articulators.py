@@ -18,9 +18,9 @@ from tensortract2.modules.audioprocessing_functional import resample_like_libros
 
 @st.cache_resource  # 👈 Add the caching decorator
 def load_model():
-   if st.secrets['HF_TOKEN'] is not None:
+   try:
       hf_token = st.secrets['HF_TOKEN']
-   else:
+   except Exception:
       hf_token = None
    print("Loading model...")
    model = TensorTractLab(hf_token=hf_token)
@@ -113,7 +113,11 @@ s2a_audio_input_plot = grid_layout.pyplot(fig, use_container_width=True)
 if 's2a_audio_input' not in st.session_state:
     st.session_state['s2a_audio_input'] = np.array([])
 
-s2a_audio_input_play = grid_layout.audio( st.session_state.s2a_audio_input, sample_rate=16000, format="wav" )
+s2a_audio_input_play = grid_layout.audio(
+    st.session_state.s2a_audio_input,
+    sample_rate=16000,
+    format="audio/mpeg",
+    )
 # button that says "to input"
 upload_to_input = grid_layout.button("Process Uploaded File")
 recording_to_input = grid_layout.button("Process Recording")
@@ -133,7 +137,7 @@ def process_s2a_audio_input(x):
     wav = resample_like_librosa(wav, sr, 16000)
     wav_np = wav.squeeze().numpy()
     #st.session_state.s2a_audio_input = wav_np
-    s2a_audio_input_play.audio(wav_np, sample_rate=16000, format="wav")
+    s2a_audio_input_play.audio(wav_np, sample_rate=16000, format="audio/mpeg")
     fig = plot_audio_waveform([s/sr for s in range(len(wav_np))], wav_np)
     s2a_audio_input_plot.pyplot(fig, use_container_width=True)
 
@@ -167,9 +171,9 @@ def process_s2a_audio_input(x):
     tt2_synthesis = y[0].squeeze().numpy()
     vtl_synthesis = z[0].squeeze()
     grid_layout.write( "Neural Synthesis (TT2):" )
-    grid_layout.audio(tt2_synthesis, sample_rate=16000, format="wav")
+    grid_layout.audio(tt2_synthesis, sample_rate=16000, format="audio/mpeg")
     grid_layout.write( "Articulatory Synthesis (VTL):" )
-    grid_layout.audio(vtl_synthesis, sample_rate=16000, format="wav")
+    grid_layout.audio(vtl_synthesis, sample_rate=16000, format="audio/mpeg")
     grid_layout.video("data/temp_video.mp4", format="video/mp4", start_time=0)
     return
 

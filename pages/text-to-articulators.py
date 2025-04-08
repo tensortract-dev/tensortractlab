@@ -18,9 +18,9 @@ from tensortract2.modules.audioprocessing_functional import resample_like_libros
 
 @st.cache_resource  # 👈 Add the caching decorator
 def load_model():
-   if st.secrets['HF_TOKEN'] is not None:
+   try:
       hf_token = st.secrets['HF_TOKEN']
-   else:
+   except Exception:
       hf_token = None
    print("Loading model...")
    model = TensorTractLab(hf_token=hf_token)
@@ -140,7 +140,7 @@ def process_t2a_audio_input(x):
     tt2_synthesis = y[0].squeeze().numpy()
     vtl_synthesis = z[0].squeeze()
     grid_layout.write( "Neural Synthesis (TT2):" )
-    grid_layout.audio(tt2_synthesis, sample_rate=16000, format="wav")
+    grid_layout.audio(tt2_synthesis, sample_rate=16000, format="audio/mpeg")
     grid_layout.write( "Articulatory Synthesis (VTL):" )
     grid_layout.audio(vtl_synthesis, sample_rate=16000, format="wav")
     grid_layout.video("data/temp_tts_video.mp4", format="video/mp4", start_time=0)
