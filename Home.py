@@ -15,10 +15,14 @@ st.set_page_config(
 
 @st.cache_resource  # 👈 Add the caching decorator
 def load_model():
-    print("Loading model...")
-    model = TensorTractLab()
-    model.eval()
-    return model
+   if st.secrets['HF_TOKEN'] is not None:
+      hf_token = st.secrets['HF_TOKEN']
+   else:
+      hf_token = None
+   print("Loading model...")
+   model = TensorTractLab(hf_token=hf_token)
+   model.eval()
+   return model
 
 
 # Animated SVG using SMIL

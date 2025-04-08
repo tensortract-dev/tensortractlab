@@ -26,12 +26,23 @@ from target_approximation.tensortract import MotorSeries as TT_MSRS
 class TensorTractLab( TensorTract2 ):
     def __init__(
             self,
-            *args,
-            **kwargs,
+            cfg_path: str = 'tensortract2_version_uc81_am100',
+            auto_load_weights: bool = True,
+            hf_token: Optional[str] = None,
             ):
-        super().__init__(*args,**kwargs)
-        self.tts_tokenizer_en = VitsTokenizer.from_pretrained("facebook/mms-tts-eng")
-        self.tts_model_en = VitsModel.from_pretrained("facebook/mms-tts-eng")
+        super().__init__(
+            cfg_path=cfg_path,
+            auto_load_weights=auto_load_weights,
+            hf_token=hf_token,
+            )
+        self.tts_tokenizer_en = VitsTokenizer.from_pretrained(
+            "facebook/mms-tts-eng",
+            token = hf_token,
+            )
+        self.tts_model_en = VitsModel.from_pretrained(
+            "facebook/mms-tts-eng",
+            token = hf_token,
+            )
         return
     
     def motor_to_speech(
