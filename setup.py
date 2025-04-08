@@ -5,7 +5,7 @@ install_requires = [
     'streamlit==1.44.1',
     'streamlit-extras==0.6.0',
     'tensortract2==0.0.2',
-    'vocaltractlab==0.5.6',
+    'vocaltractlab==0.5.7',
     ]
 
 setup(
